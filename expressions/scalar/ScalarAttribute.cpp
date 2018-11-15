@@ -55,7 +55,7 @@ serialization::Scalar ScalarAttribute::getProto() const {
   proto.SetExtension(serialization::ScalarAttribute::relation_id, attribute_.getParent().getID());
   proto.SetExtension(serialization::ScalarAttribute::attribute_id, attribute_.getID());
 
-  S::ScalarAttribute::JoinSide join_side_proto;
+  S::ScalarAttribute::JoinSide join_side_proto = S::ScalarAttribute::NONE;
   switch (join_side_) {
     case kNone:
       join_side_proto = S::ScalarAttribute::NONE;

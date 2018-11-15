@@ -28,7 +28,7 @@ namespace quickstep {
 namespace optimizer {
 
 
-const physical::PhysicalPtr Optimizer::getPhysicalPlan(const ParseStatement &parse_statement,
+const char* Optimizer::getPhysicalPlan(const ParseStatement &parse_statement,
                                                         CatalogDatabase *catalog_database,
                                                         OptimizerContext *optimizer_context) {
   LogicalGenerator logical_generator(optimizer_context);
@@ -39,7 +39,7 @@ const physical::PhysicalPtr Optimizer::getPhysicalPlan(const ParseStatement &par
           logical_generator.generatePlan(*catalog_database, parse_statement),
           catalog_database);
 
-  return physical_plan;
+  return physical_plan->toString().c_str();
 }
 void Optimizer::generateQueryHandle(const ParseStatement &parse_statement,
                                     CatalogDatabase *catalog_database,

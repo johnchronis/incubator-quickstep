@@ -51,6 +51,8 @@ add_library(quickstep_queryoptimizer_QueryPlan ../empty_src.cpp QueryPlan.hpp)
 add_library(quickstep_queryoptimizer_QueryProcessor QueryProcessor.cpp QueryProcessor.hpp)
 add_library(quickstep_queryoptimizer_Validator ../empty_src.cpp Validator.hpp)
 
+add_library(hustle_optimizer HustleOptimizer.cpp HustleOptimizer.hpp)
+
 # Link dependencies:
 target_link_libraries(quickstep_queryoptimizer_ExecutionGenerator
                       ${GFLAGS_LIB_NAME}
@@ -201,13 +203,24 @@ target_link_libraries(quickstep_queryoptimizer_LogicalToPhysicalMapper
                       quickstep_queryoptimizer_physical_Physical
                       quickstep_utility_Macros)
 target_link_libraries(quickstep_queryoptimizer_Optimizer
-#                      quickstep_queryoptimizer_ExecutionGenerator
+                      quickstep_queryoptimizer_ExecutionGenerator
                       quickstep_queryoptimizer_QueryHandle
                       quickstep_queryoptimizer_LogicalGenerator
                       quickstep_queryoptimizer_OptimizerContext
                       quickstep_queryoptimizer_PhysicalGenerator
                       quickstep_queryoptimizer_resolver_Resolver
                       quickstep_utility_Macros)
+
+target_link_libraries(hustle_optimizer
+        quickstep_queryoptimizer_ExecutionGenerator
+        quickstep_queryoptimizer_QueryHandle
+        quickstep_queryoptimizer_LogicalGenerator
+        quickstep_queryoptimizer_OptimizerContext
+        quickstep_queryoptimizer_PhysicalGenerator
+        quickstep_queryoptimizer_resolver_Resolver
+        quickstep_utility_Macros)
+
+
 target_link_libraries(quickstep_queryoptimizer_OptimizerContext
                       quickstep_queryoptimizer_expressions_ExprId
                       quickstep_utility_Macros)

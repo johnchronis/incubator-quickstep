@@ -19,6 +19,7 @@
 
 #include "query_optimizer/Optimizer.hpp"
 #include "parser/SqlParserWrapper.hpp"
+#include "HustleOptimizer.hpp"
 
 #include "query_optimizer/LogicalGenerator.hpp"
 #include "query_optimizer/OptimizerContext.hpp"
@@ -62,12 +63,12 @@ int main(int argc, char* argv[]) {
   test_database_loader_.loadTestRelation();
 
   std::cout << "4 \n";
-  quickstep::optimizer::physical::PhysicalPtr pplan =
-      optimizer_.getPhysicalPlan(parse_statement,
+  const char * pplan =
+      hustle_getPhysicalPlan(parse_statement,
                              test_database_loader_.catalog_database(),
                              &optimizer_context);
   std::cout << "5 \n";
-  std::cout << pplan.get()->toString() << std::endl;
+  std::cout << pplan << std::endl;
 
 //  std::cout<< "AAAA :" << result.parsed_statement->toString() << std::endl;
 
