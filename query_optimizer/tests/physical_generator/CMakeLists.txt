@@ -55,3 +55,7 @@ add_test(quickstep_queryoptimizer_tests_physicalgenerator_update
          "../quickstep_queryoptimizer_tests_OptimizerTextTest"
          "${CMAKE_CURRENT_SOURCE_DIR}/Update.test"
          "${CMAKE_CURRENT_BINARY_DIR}/Update.test")
+add_test(quickstep_queryoptimizer_tests_physicalgenerator_hustlefirstquery
+        "../quickstep_queryoptimizer_tests_OptimizerTextTest"
+        "${CMAKE_CURRENT_SOURCE_DIR}/hustlefirstquery.test"
+        "${CMAKE_CURRENT_BINARY_DIR}/hustlefirstquery.test")

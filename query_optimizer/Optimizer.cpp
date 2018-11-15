@@ -27,18 +27,33 @@
 namespace quickstep {
 namespace optimizer {
 
+
+const physical::PhysicalPtr Optimizer::getPhysicalPlan(const ParseStatement &parse_statement,
+                                                        CatalogDatabase *catalog_database,
+                                                        OptimizerContext *optimizer_context) {
+  LogicalGenerator logical_generator(optimizer_context);
+  PhysicalGenerator physical_generator(optimizer_context);
+
+  physical::PhysicalPtr physical_plan =
+      physical_generator.generatePlan(
+          logical_generator.generatePlan(*catalog_database, parse_statement),
+          catalog_database);
+
+  return physical_plan;
+}
 void Optimizer::generateQueryHandle(const ParseStatement &parse_statement,
                                     CatalogDatabase *catalog_database,
                                     OptimizerContext *optimizer_context,
                                     QueryHandle *query_handle) {
   LogicalGenerator logical_generator(optimizer_context);
   PhysicalGenerator physical_generator(optimizer_context);
-  ExecutionGenerator execution_generator(catalog_database, query_handle);
+//  ExecutionGenerator execution_generator(catalog_database, query_handle);
 
-  execution_generator.generatePlan(
-      physical_generator.generatePlan(
-          logical_generator.generatePlan(*catalog_database, parse_statement),
-          catalog_database));
+//  execution_generator.generatePlan(
+//      physical_generator.generatePlan(
+//          logical_generator.generatePlan(*catalog_database, parse_statement),
+//          catalog_database));
+
 }
 
 void Optimizer::findReferencedBaseRelations(const ParseStatement &parse_statement,

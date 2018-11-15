@@ -84,6 +84,10 @@ class Optimizer {
                                    CatalogDatabase *catalog_database,
                                    QueryHandle *query_handle);
 
+  const physical::PhysicalPtr getPhysicalPlan(const ParseStatement &parse_statement,
+                                                          CatalogDatabase *catalog_database,
+                                                          OptimizerContext *optimizer_context);
+
  private:
   DISALLOW_COPY_AND_ASSIGN(Optimizer);
 };

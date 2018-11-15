@@ -15,9 +15,9 @@
 # specific language governing permissions and limitations
 # under the License.
 
-if (ENABLE_DISTRIBUTED)
-  set(QUICKSTEP_DISTRIBUTED TRUE)
-endif()
+#if (ENABLE_DISTRIBUTED)
+#  set(QUICKSTEP_DISTRIBUTED TRUE)
+#endif()
 
 configure_file (
   "${CMAKE_CURRENT_SOURCE_DIR}/QueryOptimizerConfig.h.in"
@@ -201,7 +201,8 @@ target_link_libraries(quickstep_queryoptimizer_LogicalToPhysicalMapper
                       quickstep_queryoptimizer_physical_Physical
                       quickstep_utility_Macros)
 target_link_libraries(quickstep_queryoptimizer_Optimizer
-                      quickstep_queryoptimizer_ExecutionGenerator
+#                      quickstep_queryoptimizer_ExecutionGenerator
+                      quickstep_queryoptimizer_QueryHandle
                       quickstep_queryoptimizer_LogicalGenerator
                       quickstep_queryoptimizer_OptimizerContext
                       quickstep_queryoptimizer_PhysicalGenerator
@@ -267,14 +268,15 @@ target_link_libraries(quickstep_queryoptimizer_Validator
                       quickstep_queryoptimizer_expressions_AttributeReference
                       quickstep_queryoptimizer_expressions_ExpressionUtil)
 
-if (ENABLE_DISTRIBUTED)
-  target_link_libraries(quickstep_queryoptimizer_ExecutionGenerator
-                        quickstep_catalog_Catalog_proto)
-endif()
+#if (ENABLE_DISTRIBUTED)
+#  target_link_libraries(quickstep_queryoptimizer_ExecutionGenerator
+#                        quickstep_catalog_Catalog_proto)
+#endif()
 
 # Module all-in-one library:
 add_library(quickstep_queryoptimizer ../empty_src.cpp QueryOptimizerModule.hpp)
 target_link_libraries(quickstep_queryoptimizer
+                    quickstep_queryoptimizer_QueryHandle
                       quickstep_queryoptimizer_ExecutionGenerator
                       quickstep_queryoptimizer_LIPFilterGenerator
                       quickstep_queryoptimizer_LogicalGenerator
@@ -283,7 +285,6 @@ target_link_libraries(quickstep_queryoptimizer
                       quickstep_queryoptimizer_OptimizerContext
                       quickstep_queryoptimizer_OptimizerTree
                       quickstep_queryoptimizer_PhysicalGenerator
-                      quickstep_queryoptimizer_QueryHandle
                       quickstep_queryoptimizer_QueryPlan
                       quickstep_queryoptimizer_QueryProcessor
                       quickstep_queryoptimizer_Validator

@@ -737,10 +737,12 @@ add_subdirectory(utility)
 add_subdirectory(yarn)
 
 # Build the quickstep_cli_shell executable.
-add_executable(quickstep_cli_shell cli/QuickstepCli.cpp)
+#add_executable(quickstep_cli_shell cli/QuickstepCli.cpp)
+add_executable(quick_opt query_optimizer/optmain.cpp)
+
 
 # Link against direct deps (will transitively pull in everything needed).
-target_link_libraries(quickstep_cli_shell
+target_link_libraries(quick_opt
                       ${GFLAGS_LIB_NAME}
                       glog
                       quickstep_catalog_CatalogRelation
@@ -771,61 +773,62 @@ target_link_libraries(quickstep_cli_shell
                       quickstep_utility_Macros
                       quickstep_utility_PtrVector
                       quickstep_utility_ScopedReassignment
+                      quickstep_queryoptimizer_tests_TestDatabaseLoader
                       quickstep_utility_SqlError
                       quickstep_utility_StringUtil)
-if (ENABLE_HDFS)
-  target_link_libraries(quickstep_cli_shell
-                        quickstep_storage_FileManagerHdfs)
-endif()
-if (ENABLE_NETWORK_CLI)
-  target_link_libraries(quickstep_cli_shell
-                        quickstep_cli_NetworkIO)
-endif()
-# Link against other required system and third-party libraries.
-target_link_libraries(quickstep_cli_shell ${LIBS})
+#if (ENABLE_HDFS)
+#  target_link_libraries(quickstep_cli_shell
+#                        quickstep_storage_FileManagerHdfs)
+#endif()
+#if (ENABLE_NETWORK_CLI)
+#  target_link_libraries(quickstep_cli_shell
+#                        quickstep_cli_NetworkIO)
+#endif()
+## Link against other required system and third-party libraries.
+#target_link_libraries(quickstep_cli_shell ${LIBS})
 
-if (ENABLE_DISTRIBUTED)
-  # Build the quickstep_distributed_cli_shell executable.
-  add_executable(quickstep_distributed_cli_shell
-                 cli/distributed/Cli.hpp
-                 cli/distributed/Cli.cpp
-                 cli/distributed/QuickstepDistributedCli.cpp)
-  # Link against direct deps (will transitively pull in everything needed).
-  target_link_libraries(quickstep_distributed_cli_shell
-                        ${GFLAGS_LIB_NAME}
-                        ${GRPCPLUSPLUS_LIBRARIES}
-                        glog
-                        quickstep_catalog_CatalogRelation
-                        quickstep_cli_Constants
-                        quickstep_cli_DefaultsConfigurator
-                        quickstep_cli_Flags
-                        quickstep_cli_LineReader
-                        quickstep_cli_PrintToScreen
-                        quickstep_cli_distributed_Conductor
-                        quickstep_cli_distributed_Executor
-                        quickstep_cli_distributed_Role
-                        quickstep_parser_ParseStatement
-                        quickstep_parser_SqlParserWrapper
-                        quickstep_queryexecution_BlockLocatorUtil
-                        quickstep_queryexecution_QueryExecutionMessages_proto
-                        quickstep_queryexecution_QueryExecutionTypedefs
-                        quickstep_queryexecution_QueryExecutionUtil
-                        quickstep_storage_DataExchangerAsync
-                        quickstep_storage_StorageBlockInfo
-                        quickstep_storage_StorageManager
-                        quickstep_utility_Macros
-                        quickstep_utility_SqlError
-                        quickstep_utility_StringUtil
-                        tmb)
-endif(ENABLE_DISTRIBUTED)
-
-if (ENABLE_NETWORK_CLI)
-  add_executable(quickstep_client cli/NetworkCliClientMain.cpp)
-  target_link_libraries(quickstep_client
-                        ${GFLAGS_LIB_NAME}
-                        ${GRPCPLUSPLUS_LIBRARIES}
-                        glog
-                        quickstep_cli_LineReaderBuffered
-                        quickstep_cli_NetworkCliClient
-                        quickstep_cli_NetworkIO)
-endif()
+#if (ENABLE_DISTRIBUTED)
+#  # Build the quickstep_distributed_cli_shell executable.
+#  add_executable(quickstep_distributed_cli_shell
+#                 cli/distributed/Cli.hpp
+#                 cli/distributed/Cli.cpp
+#                 cli/distributed/QuickstepDistributedCli.cpp)
+#  # Link against direct deps (will transitively pull in everything needed).
+#  target_link_libraries(quickstep_distributed_cli_shell
+#                        ${GFLAGS_LIB_NAME}
+#                        ${GRPCPLUSPLUS_LIBRARIES}
+#                        glog
+#                        quickstep_catalog_CatalogRelation
+#                        quickstep_cli_Constants
+#                        quickstep_cli_DefaultsConfigurator
+#                        quickstep_cli_Flags
+#                        quickstep_cli_LineReader
+#                        quickstep_cli_PrintToScreen
+#                        quickstep_cli_distributed_Conductor
+#                        quickstep_cli_distributed_Executor
+#                        quickstep_cli_distributed_Role
+#                        quickstep_parser_ParseStatement
+#                        quickstep_parser_SqlParserWrapper
+#                        quickstep_queryexecution_BlockLocatorUtil
+#                        quickstep_queryexecution_QueryExecutionMessages_proto
+#                        quickstep_queryexecution_QueryExecutionTypedefs
+#                        quickstep_queryexecution_QueryExecutionUtil
+#                        quickstep_storage_DataExchangerAsync
+#                        quickstep_storage_StorageBlockInfo
+#                        quickstep_storage_StorageManager
+#                        quickstep_utility_Macros
+#                        quickstep_utility_SqlError
+#                        quickstep_utility_StringUtil
+#                        tmb)
+#endif(ENABLE_DISTRIBUTED)
+#
+#if (ENABLE_NETWORK_CLI)
+#  add_executable(quickstep_client cli/NetworkCliClientMain.cpp)
+#  target_link_libraries(quickstep_client
+#                        ${GFLAGS_LIB_NAME}
+#                        ${GRPCPLUSPLUS_LIBRARIES}
+#                        glog
+#                        quickstep_cli_LineReaderBuffered
+#                        quickstep_cli_NetworkCliClient
+#                        quickstep_cli_NetworkIO)
+#endif()
