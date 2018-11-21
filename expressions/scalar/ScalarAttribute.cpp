@@ -57,14 +57,15 @@ serialization::Scalar ScalarAttribute::getProto() const {
 
   S::ScalarAttribute::JoinSide join_side_proto;
   switch (join_side_) {
-    case kNone:
-      join_side_proto = S::ScalarAttribute::NONE;
-      break;
     case kLeftSide:
       join_side_proto = S::ScalarAttribute::LEFT_SIDE;
       break;
     case kRightSide:
       join_side_proto = S::ScalarAttribute::RIGHT_SIDE;
+      break;
+    case kNone:
+    default:
+      join_side_proto = S::ScalarAttribute::NONE;
       break;
   }
   proto.SetExtension(S::ScalarAttribute::join_side, join_side_proto);
