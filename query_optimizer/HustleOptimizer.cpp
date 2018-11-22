@@ -18,7 +18,7 @@
 //
 //}
 //}
-std::string hustle_getPhysicalPlan(const quickstep::ParseStatement &parse_statement,
+quickstep::optimizer::physical::PhysicalPtr hustle_getPhysicalPlan(const quickstep::ParseStatement &parse_statement,
                                    quickstep::CatalogDatabase *catalog_database,
                                    quickstep::optimizer::OptimizerContext *optimizer_context) {
   quickstep::optimizer::LogicalGenerator logical_generator(optimizer_context);
@@ -29,14 +29,14 @@ std::string hustle_getPhysicalPlan(const quickstep::ParseStatement &parse_statem
           logical_generator.generatePlan(*catalog_database, parse_statement),
           catalog_database);
 
-  return physical_plan->toString();
+  return physical_plan;
 }
 
 std::string hustle_optimize() {
   std::cout << "1 \n";
   quickstep::SqlParserWrapper sql_parser_;
   quickstep::optimizer::Optimizer optimizer_;
-  std::string* query = new std::string("select int_col from test;");
+  std::string* query = new std::string("select a from t;");
 
   sql_parser_.feedNextBuffer(query);
   quickstep::ParseResult result = sql_parser_.getNextStatement();
@@ -49,18 +49,20 @@ std::string hustle_optimize() {
 
   quickstep::optimizer::TestDatabaseLoader test_database_loader_;
 
+  std::cout << "3.1 \n";
   test_database_loader_.createTestRelation(false /* allow_vchar */);
+  std::cout << "3.2 \n";
   test_database_loader_.loadTestRelation();
 
   std::cout << "4 \n";
-  std::string pplan =
+  quickstep::optimizer::physical::PhysicalPtr pplan =
       hustle_getPhysicalPlan(parse_statement,
                              test_database_loader_.catalog_database(),
                              &optimizer_context);
-  std::cout << "5: " << pplan << std::endl;
+  std::cout << "5: " << pplan->toString() << std::endl;
 
 
-  return pplan;
+  return pplan->toString();
 }
 
 //}  // namespace optimizer
