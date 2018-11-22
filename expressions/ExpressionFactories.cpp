@@ -167,15 +167,15 @@ Scalar* ScalarFactory::ReconstructFromProto(const serialization::Scalar &proto,
 
       Scalar::JoinSide join_side;
       switch (proto.GetExtension(S::ScalarAttribute::join_side)) {
+        default:
+        case S::ScalarAttribute::NONE:
+          join_side = Scalar::kNone;
+          break;
         case S::ScalarAttribute::LEFT_SIDE:
           join_side = Scalar::kLeftSide;
           break;
         case S::ScalarAttribute::RIGHT_SIDE:
           join_side = Scalar::kRightSide;
-          break;
-        default:   
-        case S::ScalarAttribute::NONE:
-          join_side = Scalar::kNone;
           break;
       }
 
