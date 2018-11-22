@@ -62,7 +62,7 @@ function(QS_PROTOBUF_GENERATE_CPP SRCS HDRS)
               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/${FIL_WE}.pb.cc"
               "${CMAKE_CURRENT_BINARY_DIR}/${FIL_WE}.pb.h"
               COMMAND ${PROTOBUF_PROTOC_EXECUTABLE}
-              ARGS --cpp_out ${CMAKE_BINARY_DIR} -I${PROJECT_SOURCE_DIR} ${ABS_FIL}
+              ARGS --cpp_out ${CMAKE_BINARY_DIR}/optimizer/quickstep -I${PROJECT_SOURCE_DIR} ${ABS_FIL}
               DEPENDS ${ABS_FIL} ${PROTO_IMPORT_TARGETS} ${PROTOBUF_GLOBAL_DEPS}
               COMMENT "Running C++ protocol buffer compiler on ${FIL}"
               VERBATIM)
