@@ -10,30 +10,33 @@
 #include "query_optimizer/tests/TestDatabaseLoader.hpp"
 
 
-namespace quickstep {
-namespace optimizer {
-//using namespace quickstep;
-//using namespace quickstep::optimizer;
+//namespace quickstep {
+//namespace optimizer {
+////using namespace quickstep;
+////using namespace quickstep::optimizer;
+//
+//
+//}
+//}
+std::string hustle_getPhysicalPlan(const quickstep::ParseStatement &parse_statement,
+                                   quickstep::CatalogDatabase *catalog_database,
+                                   quickstep::optimizer::OptimizerContext *optimizer_context) {
+  quickstep::optimizer::LogicalGenerator logical_generator(optimizer_context);
+  quickstep::optimizer::PhysicalGenerator physical_generator(optimizer_context);
 
-const char* hustle_getPhysicalPlan(const ParseStatement &parse_statement,
-                                       CatalogDatabase *catalog_database,
-                                       OptimizerContext *optimizer_context) {
-  LogicalGenerator logical_generator(optimizer_context);
-  PhysicalGenerator physical_generator(optimizer_context);
-
-  physical::PhysicalPtr physical_plan =
+  quickstep::optimizer::physical::PhysicalPtr physical_plan =
       physical_generator.generatePlan(
           logical_generator.generatePlan(*catalog_database, parse_statement),
           catalog_database);
 
-  return physical_plan->toString().c_str();
+  return physical_plan->toString();
 }
 
-const char* hustle_optimize() {
+std::string hustle_optimize() {
   std::cout << "1 \n";
-  SqlParserWrapper sql_parser_;
-  Optimizer optimizer_;
-  std::string* query = new std::string("select t from t;");
+  quickstep::SqlParserWrapper sql_parser_;
+  quickstep::optimizer::Optimizer optimizer_;
+  std::string* query = new std::string("select int_col from test;");
 
   sql_parser_.feedNextBuffer(query);
   quickstep::ParseResult result = sql_parser_.getNextStatement();
@@ -50,17 +53,17 @@ const char* hustle_optimize() {
   test_database_loader_.loadTestRelation();
 
   std::cout << "4 \n";
-  const char * pplan =
+  std::string pplan =
       hustle_getPhysicalPlan(parse_statement,
                              test_database_loader_.catalog_database(),
                              &optimizer_context);
-  std::cout << "5 \n";
-  std::cout << pplan << std::endl;
+  std::cout << "5: " << pplan << std::endl;
+
 
   return pplan;
 }
 
-}  // namespace optimizer
-}  // namespace quickstep
+//}  // namespace optimizer
+//}  // namespace quickstep
 
 //

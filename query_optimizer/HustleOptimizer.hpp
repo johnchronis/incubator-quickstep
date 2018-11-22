@@ -1,6 +1,6 @@
 #ifndef QUICKSTEP_HUSTLEOPTIMIZER_H
 #define QUICKSTEP_HUSTLEOPTIMIZER_H
-
+#include <iostream>
 
 //namespace quickstep {
 //
@@ -17,7 +17,7 @@
 //                              OptimizerContext *optimizer_context);
 //
 
-const char* hustle_optimize();
+std::string hustle_optimize();
 //
 //
 //}  // namespace optimizer
