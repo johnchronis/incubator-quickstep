@@ -43,34 +43,34 @@ int main(int argc, char* argv[]) {
   gflags::ParseCommandLineFlags(&argc, &argv, true);
 
   std::cout << "1 \n";
-  quickstep::SqlParserWrapper sql_parser_;
+//  quickstep::SqlParserWrapper sql_parser_;
+////  quickstep::optimizer::TestDatabaseLoader test_database_loader_;
+//  quickstep::optimizer::Optimizer optimizer_;
+//  std::string* query = new std::string("select int_col from test;");
+//
+//  sql_parser_.feedNextBuffer(query);
+//  quickstep::ParseResult result = sql_parser_.getNextStatement();
+//
+//  std::cout << "2 \n";
+//  quickstep::optimizer::OptimizerContext optimizer_context;
+//  const quickstep::ParseStatement &parse_statement = *result.parsed_statement;
+//
+//  std::cout << "3 \n";
+//
 //  quickstep::optimizer::TestDatabaseLoader test_database_loader_;
-  quickstep::optimizer::Optimizer optimizer_;
-  std::string* query = new std::string("select int_col from test;");
-
-  sql_parser_.feedNextBuffer(query);
-  quickstep::ParseResult result = sql_parser_.getNextStatement();
-
-  std::cout << "2 \n";
-  quickstep::optimizer::OptimizerContext optimizer_context;
-  const quickstep::ParseStatement &parse_statement = *result.parsed_statement;
-
-  std::cout << "3 \n";
-
-  quickstep::optimizer::TestDatabaseLoader test_database_loader_;
-
-  test_database_loader_.createTestRelation(false /* allow_vchar */);
-  test_database_loader_.loadTestRelation();
-
-  std::cout << "4 \n";
-  const char * pplan =
-      hustle_getPhysicalPlan(parse_statement,
-                             test_database_loader_.catalog_database(),
-                             &optimizer_context);
-  std::cout << "5 \n";
-  std::cout << pplan << std::endl;
-
-//  std::cout<< "AAAA :" << result.parsed_statement->toString() << std::endl;
+//
+//  test_database_loader_.createTestRelation(false /* allow_vchar */);
+//  test_database_loader_.loadTestRelation();
+//
+//  std::cout << "4 \n";
+//  const char * pplan =
+//      hustle_getPhysicalPlan(parse_statement,
+//                             test_database_loader_.catalog_database(),
+//                             &optimizer_context);
+//  std::cout << "5 \n";
+//  std::cout << pplan << std::endl;
+//
+////  std::cout<< "AAAA :" << result.parsed_statement->toString() << std::endl;
 
 
 //  const ParseStatement &parse_statement = *result.parsed_statement;
